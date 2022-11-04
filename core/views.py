@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Q
 from .models import Product, ProductImage, Brand, OrderProduct, FavoriteProduct, Order 
@@ -85,9 +86,7 @@ def about(request):
 
 def products(request):
     cart_quantity = quantity_of_items(request)
-    
     products = Product.objects.all()
-    brands = Brand.objects.all()
     
     # Checking which categories have registered products
     categories = []
@@ -116,6 +115,12 @@ def products(request):
             fourth_slide_carousel.append(brand)
         count += 1
     
+    # Pagination
+    paginator = Paginator(products, 18)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    products = page_obj
+    
     context = {
         'products': products,
         'categories': categories,
@@ -126,6 +131,7 @@ def products(request):
         'second_slide_carousel': second_slide_carousel,
         'third_slide_carousel': third_slide_carousel,
         'fourth_slide_carousel': fourth_slide_carousel,
+        'page_obj': page_obj,
     }
     return render(request, 'shop.html', context)
 
@@ -196,6 +202,12 @@ def category_products(request, category):
             fourth_slide_carousel.append(brand)
         count += 1
 
+    # Pagination
+    paginator = Paginator(filtered_products, 18)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    products = page_obj
+
     context = {
         'products': filtered_products,
         'categories': categories,
@@ -206,6 +218,7 @@ def category_products(request, category):
         'second_slide_carousel': second_slide_carousel,
         'third_slide_carousel': third_slide_carousel,
         'fourth_slide_carousel': fourth_slide_carousel,
+        'page_obj': page_obj,
     }
     return render(request, 'shop.html', context)
 
@@ -242,6 +255,12 @@ def brand_products(request, pk):
         elif count >= 13 and count <= 16:
             fourth_slide_carousel.append(brand)
         count += 1
+    
+    # Pagination
+    paginator = Paginator(filtered_products, 18)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    products = page_obj
 
     context = {
         'products': filtered_products,
@@ -253,6 +272,7 @@ def brand_products(request, pk):
         'second_slide_carousel': second_slide_carousel,
         'third_slide_carousel': third_slide_carousel,
         'fourth_slide_carousel': fourth_slide_carousel,
+        'page_obj': page_obj,
     }
     return render(request, 'shop.html', context)
 
