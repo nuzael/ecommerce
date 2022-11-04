@@ -1,0 +1,171 @@
+{% load static %}
+
+
+<section class="bg-light py-5">
+    <div class="container my-4">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Nossas Marcas</h1>
+                <p>
+                    São nossas recomendações, que foram selecionadas a dedo pela qualidade do produto e entrega.
+                </p>
+            </div>
+            <div class="col-lg-9 m-auto tempaltemo-carousel">
+                <div class="row d-flex flex-row">
+                    <!--Controls-->
+                    <div class="col-1 align-self-center">
+                        <a class="h1" href="#templatemo-slide-brand" role="button" data-bs-slide="prev">
+                            <i class="text-light fas fa-chevron-left"></i>
+                        </a>
+                    </div>
+                    <!--End Controls-->
+
+                    <!--Carousel Wrapper-->
+                    <div class="col">
+                        <div class="carousel slide carousel-multi-item pt-2 pt-md-0" id="templatemo-slide-brand" data-bs-ride="carousel">
+                            <!--Slides-->
+                            <div class="carousel-inner product-links-wap" role="listbox">
+
+                                {% if quant_brands >= 1 and quant_brands <= 4 %}
+                                <!-- Start First Slide -->
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        {% for brand in first_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End First Slide -->
+
+                                {% elif quant_brands >= 5 and quant_brands <= 8 %}
+                                <!-- Start First Slide -->
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        {% for brand in first_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End First Slide -->
+
+                                <!-- Start Second Slide-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        {% for brand in second_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End Second Slide-->
+
+                                {% elif quant_brands >= 9 and quant_brands <= 12 %}
+                                <!-- Start First Slide -->
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        {% for brand in first_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End First Slide -->
+
+                                <!-- Start Second Slide-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        {% for brand in second_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End Second Slide-->
+
+                                <!-- Start Third Slide-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        {% for brand in third_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End Third Slide-->
+
+                                {% elif quant_brands >= 13 and quant_brands <= 16 %}
+                                <!-- Start First Slide -->
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        {% for brand in first_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End First Slide -->
+
+                                <!-- Start Second Slide-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        {% for brand in second_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End Second Slide-->
+
+                                <!-- Start Third Slide-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        {% for brand in third_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End Third Slide-->
+
+                                <!-- Start Fourth Slide-->
+                                <div class="carousel-item">
+                                    <div class="row">
+                                        {% for brand in fourth_slide_carousel %}
+                                        <div class="col-3 p-md-5">
+                                            <a href="#"><img class="img-fluid brand-img" src="{{ brand.image.url }}" alt="Brand Logo"></a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!--End Fourth Slide-->
+                                {% endif %}
+
+                            </div>
+                            <!--End Slides-->
+                        </div>
+                    </div>
+                    <!--End Carousel Wrapper-->
+
+                    <!--Controls-->
+                    <div class="col-1 align-self-center">
+                        <a class="h1" href="#templatemo-slide-brand" role="button" data-bs-slide="next">
+                            <i class="text-light fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    <!--End Controls-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
