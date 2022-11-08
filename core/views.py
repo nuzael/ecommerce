@@ -391,7 +391,40 @@ def del_to_favorite(request, slug):
 
 @login_required(redirect_field_name='login')
 def profile(request):
-    cart_quantity = quantity_of_items(request) 
+    cart_quantity = quantity_of_items(request)
+    
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        
+        if first_name != request.user.first_name:
+            User.objects.filter(username=request.user.username).update(first_name=first_name)
+    
+        if last_name != request.user.last_name:
+            User.objects.filter(username=request.user.username).update(last_name=last_name) 
+            
+        if (email != request.user.email):
+            if User.objects.filter(email=email):
+                messages.info(request, 'Esse email já existe!')
+            else:
+                User.objects.filter(username=request.user.username).update(email=email)
+        
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        new_password2 = request.POST.get('new_password2')
+        if old_password != '' or new_password != '' or new_password2 != '':
+            if auth.authenticate(username=request.user.username, password=old_password):
+                if new_password == new_password2:
+                    user = User.objects.get(username=request.user.username)
+                    user.set_password(new_password)
+                    user.save()
+                else:
+                    messages.info(request, 'As novas senhas precisam ser iguais.')
+            else:
+                messages.info(request, 'A senha antiga está incorreta.')
+        
+        return redirect(request.META.get('HTTP_REFERER'))
     
     context = {
         'cart_quantity': cart_quantity
