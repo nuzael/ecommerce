@@ -43,7 +43,7 @@
                         </a>
                         <ul id="collapseThree" class="collapse list-unstyled pl-3">
                             {% for category in categories %}
-                            <li><a class="text-decoration-none" href="{% url 'category-products' category %}">{{ category | title }}</a></li>
+                            <li><a class="text-decoration-none" href="{% url 'category-products' category.pk %}">{{ category | title }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>

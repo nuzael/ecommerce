@@ -23,11 +23,9 @@
             <div class="col-md-4 pt-5">
                 <h2 class="h2 text-light border-bottom pb-3 border-light">Produtos</h2>
                 <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="#">Camisetas</a></li>
-                    <li><a class="text-decoration-none" href="#">Calças</a></li>
-                    <li><a class="text-decoration-none" href="#">Tênis</a></li>
-                    <li><a class="text-decoration-none" href="#">Óculos</a></li>
-                    <li><a class="text-decoration-none" href="#">Relógios</a></li>
+                    {% for category in categories %}
+                        <li><a class="text-decoration-none" href="{% url 'category-products' category.pk %}">{{ category.name }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
 

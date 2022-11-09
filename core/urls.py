@@ -8,7 +8,7 @@ urlpatterns = [
     path('produtos/', products, name='products'),
     path('contato/', contact, name='contact'),
     path('busca/', search, name='search'),
-    path('produtos/categoria/<str:category>', category_products, name='category-products'),
+    path('produtos/categoria/<int:pk>', category_products, name='category-products'),
     path('produtos/marca/<int:pk>', brand_products, name='brand-products'),
     path('produto/<str:slug>', single_product, name='single-product'),
     

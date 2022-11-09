@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Q
-from .models import Product, ProductImage, Brand, OrderProduct, FavoriteProduct, Order 
+from .models import Product, ProductImage, Brand, Category, OrderProduct, FavoriteProduct, Order 
 
 
 def quantity_of_items(request):
@@ -18,6 +18,7 @@ def quantity_of_items(request):
 
 def index(request):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
         
     # Arranging the brands for the carousel
     brands = Brand.objects.all()
@@ -42,6 +43,7 @@ def index(request):
     
     context = {
         'cart_quantity': cart_quantity,
+        'categories': categories,
         'quant_brands': quant_brands,
         'first_slide_carousel': first_slide_carousel,
         'second_slide_carousel': second_slide_carousel,
@@ -52,6 +54,7 @@ def index(request):
 
 def about(request):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
     
     # Arranging the brands for the carousel
     brands = Brand.objects.all()
@@ -76,6 +79,7 @@ def about(request):
     
     context = {
         'cart_quantity': cart_quantity,
+        'categories': categories,
         'quant_brands': quant_brands,
         'first_slide_carousel': first_slide_carousel,
         'second_slide_carousel': second_slide_carousel,
@@ -87,12 +91,7 @@ def about(request):
 def products(request):
     cart_quantity = quantity_of_items(request)
     products = Product.objects.all()
-    
-    # Checking which categories have registered products
-    categories = []
-    for product in products:
-        if product.category not in categories:
-            categories.append(product.category)
+    categories = Category.objects.all()
             
     # Arranging the brands for the carousel
     brands = Brand.objects.all()
@@ -137,14 +136,17 @@ def products(request):
 
 def contact(request):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
     
     context = {
-        'cart_quantity': cart_quantity
+        'cart_quantity': cart_quantity,
+        'categories': categories,
     }
     return render(request, 'contact.html', context)
 
 def search(request):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
     
     if request.method == 'GET':
         search_term = request.GET.get('term')
@@ -159,11 +161,14 @@ def search(request):
             
     context = {
         'cart_quantity': cart_quantity,
+        'categories': categories,
         'product_search': product_search,
     }
     return render(request, 'search.html', context)
 
-def category_products(request, category):
+def category_products(request, pk):
+    categories = Category.objects.all()
+    
     if request.user.is_authenticated:
         cart_quantity = 0
         for product in OrderProduct.objects.filter(user=request.user):
@@ -171,15 +176,8 @@ def category_products(request, category):
     else:
         cart_quantity = 0
     
-    products = Product.objects.all()
     brands = Brand.objects.all()
-    filtered_products = Product.objects.filter(category=category)
-    
-    # Checking which categories have registered products
-    categories = []
-    for product in products:
-        if product.category not in categories:
-            categories.append(product.category)
+    filtered_products = Product.objects.filter(category=pk)
             
     # Arranging the brands for the carousel
     brands = Brand.objects.all()
@@ -224,16 +222,10 @@ def category_products(request, category):
 
 def brand_products(request, pk):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
     
-    products = Product.objects.all()
     brands = Brand.objects.all()
     filtered_products = Product.objects.filter(brand=pk)
-    
-    # Checking which categories have registered products
-    categories = []
-    for product in products:
-        if product.category not in categories:
-            categories.append(product.category)
             
     # Arranging the brands for the carousel
     brands = Brand.objects.all()
@@ -278,6 +270,7 @@ def brand_products(request, pk):
 
 def single_product(request, slug):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
     
     product = Product.objects.get(slug=slug)
     related_products = Product.objects.filter(category=product.category, gender=product.gender).exclude(slug=slug)[:16]
@@ -298,6 +291,7 @@ def single_product(request, slug):
 
     context = {
         'product': product,
+        'categories': categories,
         'quant_images': quant_images,
         'first_slide_carousel': first_slide_carousel,
         'second_slide_carousel': second_slide_carousel,
@@ -309,6 +303,7 @@ def single_product(request, slug):
 @login_required(redirect_field_name='login')
 def cart(request):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
     
     order_product = OrderProduct.objects.filter(user=request.user)
 
@@ -323,6 +318,7 @@ def cart(request):
         
     context = {
         'orders': order_product,
+        'categories': categories,
         'amount': round_amount,
         'cart_quantity': cart_quantity,
     }
@@ -362,6 +358,7 @@ def del_to_cart(request, slug):
 @login_required(redirect_field_name='login')
 def favorite(request):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
     
     favorite_product = FavoriteProduct.objects.filter(user=request.user)
     favorite_quantity = len(FavoriteProduct.objects.filter(user=request.user))
@@ -370,6 +367,7 @@ def favorite(request):
         'favorites': favorite_product,
         'favorite_quantity': favorite_quantity,
         'cart_quantity': cart_quantity,
+        'categories': categories,
     }
     return render(request, 'favorite.html', context)
 
@@ -392,6 +390,7 @@ def del_to_favorite(request, slug):
 @login_required(redirect_field_name='login')
 def profile(request):
     cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
     
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -427,7 +426,8 @@ def profile(request):
         return redirect(request.META.get('HTTP_REFERER'))
     
     context = {
-        'cart_quantity': cart_quantity
+        'cart_quantity': cart_quantity,
+        'categories': categories,
     }
     return render(request, 'profile.html', context=context)
 

@@ -10,18 +10,18 @@ GENDER_CHOICES = (
     ('F', 'Feminino')
 )
 
-CATEGORY_CHOICES = (
-    ('CAMISETA', 'Camiseta'),
-    ('CALCA', 'Calça'),
-    ('TENIS', 'Tênis'),
-    ('OCULOS', 'Óculos'),
-    ('RELOGIO', 'Relógio')
-)
-
 
 class Brand(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='brand_images')
+    
+    def __str__(self):
+        return self.name
+    
+    
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='category_images')
     
     def __str__(self):
         return self.name
@@ -33,10 +33,10 @@ class Product(models.Model):
     discount_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     image = models.ImageField(upload_to='product_images')
     brand = models.ForeignKey(Brand, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField(blank=True)
     color = models.CharField(max_length=100, blank=True)
     gender = models.CharField(max_length=100, choices=GENDER_CHOICES)
-    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
     specification = models.TextField(blank=True)
     size = models.CharField(max_length=100, blank=True)
     slug = AutoSlugField(populate_from=['title', 'brand', 'color', 'randomid'])
