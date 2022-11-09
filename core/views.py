@@ -168,13 +168,7 @@ def search(request):
 
 def category_products(request, pk):
     categories = Category.objects.all()
-    
-    if request.user.is_authenticated:
-        cart_quantity = 0
-        for product in OrderProduct.objects.filter(user=request.user):
-            cart_quantity += product.quantity  
-    else:
-        cart_quantity = 0
+    cart_quantity = quantity_of_items(request)
     
     brands = Brand.objects.all()
     filtered_products = Product.objects.filter(category=pk)
@@ -207,7 +201,7 @@ def category_products(request, pk):
     products = page_obj
 
     context = {
-        'products': filtered_products,
+        'products': products,
         'categories': categories,
         'cart_quantity': cart_quantity,
         'brands': brands,
@@ -255,7 +249,7 @@ def brand_products(request, pk):
     products = page_obj
 
     context = {
-        'products': filtered_products,
+        'products': products,
         'categories': categories,
         'cart_quantity': cart_quantity,
         'brands': brands,
