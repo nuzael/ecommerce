@@ -170,8 +170,11 @@
                                 </li>
                             </ul>
 
-                            <h6>Descrição:</h6>
-                            <p>{{ product.description }}</p>
+                            {% if product.description %}
+                                <h6>Descrição:</h6>
+                                <p>{{ product.description }}</p>
+                            {% endif %}
+                            
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <h6>Cor Disponível:</h6>
@@ -181,38 +184,34 @@
                                 </li>
                             </ul>
 
-                            <h6>Especificações:</h6>
-                            <ul class="list-unstyled pb-3">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius dolor perspiciatis alias. Error deleniti alias itaque repellendus! Numquam officiis provident voluptatibus eveniet earum reprehenderit omnis autem, harum maiores at minima.</p>
-                            </ul>
+                            {% if product.specification %}
+                                <h6>Especificações:</h6>
+                                <ul class="list-unstyled pb-3">
+                                    <p>{{ product.specification }}</p>
+                                </ul>
+                            {% endif %}
+
+                            <div class="row">
+                                <div class="col-auto">
+                                    <ul class="list-inline pb-3">
+                                        <li class="list-inline-item"><strong>Tamanho:</strong>
+                                            <input type="hidden" name="product-size" id="product-size" value="S">
+                                        </li>
+                                        <li class="list-inline-item"><span class="badge bg-success btn-size">{{ product.size }}</span></li>
+                                    </ul>
+                                </div>
+                                <div class="col-auto">
+                                    <ul class="list-inline pb-3">
+                                        <li class="list-inline-item">
+                                            <strong>Quantidade Disponível:</strong>
+                                            <input type="hidden" name="product-quantity" id="product-quantity" value="1">
+                                        </li>
+                                        <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">{{ product.quantity }}</span></li>
+                                    </ul>
+                                </div>
+                            </div>
 
                             {% if product.quantity != 0 %}
-                            <form action="" method="GET">
-                                <input type="hidden" name="product-title" value="{{ product.title }}">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <ul class="list-inline pb-3">
-                                            <li class="list-inline-item">Tamanho:
-                                                <input type="hidden" name="product-size" id="product-size" value="S">
-                                            </li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">P</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">G</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">GG</span></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-auto">
-                                        <ul class="list-inline pb-3">
-                                            <li class="list-inline-item text-right">
-                                                Quantidade:
-                                                <input type="hidden" name="product-quantity" id="product-quantity" value="1">
-                                            </li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 <div class="row pb-3">
                                     <div class="col d-grid">
                                         <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Comprar</button>
@@ -222,7 +221,6 @@
                                         <!-- <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Adicionar ao Carrinho</button> -->
                                     </div>
                                 </div>
-                            </form>
                             {% endif %}
                         </div>
                     </div>

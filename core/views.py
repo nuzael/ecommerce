@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Q
-from .models import Product, ProductImage, Brand, Category, OrderProduct, FavoriteProduct, Order 
+from .models import Product, ProductImage, Brand, Category, OrderProduct, FavoriteProduct
 
 
 def quantity_of_items(request):
@@ -348,6 +348,24 @@ def del_to_cart(request, slug):
                 prod.delete()
     
     return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required(redirect_field_name='login')
+def purchase(request):
+    cart_quantity = quantity_of_items(request)
+    categories = Category.objects.all()
+    
+    order_product = OrderProduct.objects.filter(user=request.user)
+    for prod in order_product:
+        product = Product.objects.get(slug=prod.product.slug)
+        quantity = product.quantity - prod.quantity
+        Product.objects.filter(slug=prod.product.slug).update(quantity=quantity)
+        OrderProduct.delete(prod)
+
+    context = {
+        'cart_quantity': cart_quantity,
+        'categories': categories,
+    }
+    return render(request, 'purchase.html', context)
 
 @login_required(redirect_field_name='login')
 def favorite(request):

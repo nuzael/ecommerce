@@ -73,11 +73,3 @@ class FavoriteProduct(models.Model):
     
     def __str__(self):
         return self.product.title
-
-
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ManyToManyField(OrderProduct)
-
-    def __str__(self):
-        return self.user.username
