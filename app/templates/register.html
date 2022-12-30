@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Drip Shop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'assets/img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    {% include 'partials/_nav.html' %}
+    <!-- Close Top Nav -->
+
+    <!-- Start Header -->
+    {% include 'partials/_header.html' %}
+    <!-- Close Header -->
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="container py-5 w-25">
+            <h1 class="pb-4 text-success">Registrar</h1>
+
+            {% for message in messages %}
+                <h6>{{ message }}</h6>
+            {% endfor %}
+
+            <!-- Username input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="form2Example1" class="form-control" name="username"/>
+                <label class="form-label" for="form2Example1">Usuário</label>
+            </div>
+            
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <input type="email" id="form2Example1" class="form-control" name="email"/>
+                <label class="form-label" for="form2Example1">Email</label>
+            </div>
+            
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" id="form2Example2" class="form-control" name="password1"/>
+                <label class="form-label" for="form2Example2">Senha</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="password" id="form2Example2" class="form-control" name="password2"/>
+                <label class="form-label" for="form2Example2">Repetir a Senha</label>
+            </div>
+            
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4 w-100">Registrar</button>
+            
+            <!-- Register buttons -->
+            <div class="text-center pb-1">
+                <p>Já é registrado? <a href="{% url 'login' %}">Entrar</a></p>
+            </div>
+        </div>
+    </form>
+
+    <!-- Start Footer -->
+    {% include 'partials/_footer.html' %}
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/templatemo.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <!-- End Script -->
+</body>
+
+</html>

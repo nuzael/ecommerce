@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Drip Shop - Perfil</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'assets/img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    {% include 'partials/_nav.html' %}
+    <!-- Close Top Nav -->
+
+    <!-- Start Header -->
+    {% include 'partials/_header.html' %}
+    <!-- Close Header -->
+
+    <section class="h-100 h-custom" style="background-color: #EFEFEF;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-lg-12">
+                                    <div class="p-5">
+                                        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <p class="nav-link active" id="home-tab" data-toggle="tab" role="tab""><strong>Bem vindo, {{ request.user | title }}!</strong></p>
+                                            </li>
+                                        </ul>
+
+                                        {% for message in messages %}
+                                            <h6>{{ message }}</h6>
+                                        {% endfor %}
+
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6 py-1">
+                                                    <label for="firstname">Nome</label>
+                                                    <input type="text" value="{{ request.user.first_name }}" id="firstname" class="form-control" placeholder="Nome ..." name="first_name"/>
+                                                </div>
+                                                <div class="form-group col-md-6 py-1">
+                                                    <label for="lastname">Sobrenome</label>
+                                                    <input type="text" value="{{ request.user.last_name }}"id="lastname" class="form-control" placeholder="Sobrenome ..." name="last_name"/>
+                                                </div>
+                                                <div class="form-group col-md-6 py-1">
+                                                    <label for="inputEmail4">Email</label>
+                                                    <input type="email" value="{{ request.user.email }}" class="form-control" id="inputEmail4" placeholder="Email ..." name="email"/>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-group">
+                                                <label for="inputAddress5">Endereço</label>
+                                                <input type="text" class="form-control" id="inputAddress5" placeholder="P.O. Box 464, 5975 Eget Avenue" />
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputState5">Estado</label>
+                                                    <select id="inputState5" class="form-control">
+                                                        <option selected="">Selecione</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label for="inputZip5">CEP</label>
+                                                    <input type="text" class="form-control" id="inputZip5" placeholder="98232" />
+                                                </div>
+                                            </div> -->
+                                            <hr class="my-4" />
+                                            <div class="row mb-4">
+                                                <div class="col-md-6">
+                                                    <div class="form-group py-1">
+                                                        <label for="inputPassword4">Senha Antiga</label>
+                                                        <input type="password" class="form-control" id="inputPassword5" name="old_password"/>
+                                                    </div>
+                                                    <div class="form-group py-1">
+                                                        <label for="inputPassword5">Nova Senha</label>
+                                                        <input type="password" class="form-control" id="inputPassword5" name="new_password"/>
+                                                    </div>
+                                                    <div class="form-group py-1">
+                                                        <label for="inputPassword6">Confirmar Nova Senha</label>
+                                                        <input type="password" class="form-control" id="inputPassword6" name="new_password2"/>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="col-md-6">
+                                                    <p class="mb-2">Requisitos de alteração de senha</p>
+                                                    <p class="small text-muted mb-2">Para criar uma nova senha é necessário seguir os seguintes requisitos:</p>
+                                                    <ul class="small text-muted pl-4 mb-0">
+                                                        <li>No mínimo 8 caractéres</li>
+                                                        <li>Pelo menos um caractere especial</li>
+                                                        <li>Pelo menos um número</li>
+                                                        <li>Não pode ser igual à senha anterior</li>
+                                                    </ul>
+                                                </div> -->
+                                            </div>
+                                            <button type="submit" class="btn btn-success">Salvar Mudanças</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+    <!-- Start Footer -->
+    {% include 'partials/_footer.html' %}
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="{% static 'assets/js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/templatemo.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <!-- End Script -->
+</body>
+
+</html>
