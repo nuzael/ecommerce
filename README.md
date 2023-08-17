@@ -26,12 +26,12 @@ docker compose -f docker-compose.yml up -d --build
 
 ### Collect the static files:
 ```bash
-docker compose exec web python manage.py collectstatic
+docker compose exec web python manage.py collectstatic --noinput
 ```
 
 ### Apply database migrations:
 ```bash
-docker compose exec web python manage.py migrate --noinput
+docker compose exec web python manage.py makemigrations --noinput && docker compose exec web python manage.py migrate --noinput
 ```
 
 ### Access the application:
