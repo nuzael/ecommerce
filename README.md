@@ -26,7 +26,7 @@ docker compose -f docker-compose.yml up -d --build
 
 ### Collect the static files:
 ```bash
-docker compose exec web python collectstatic
+docker compose exec web python manage.py collectstatic
 ```
 
 ### Apply database migrations:
