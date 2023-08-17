@@ -24,6 +24,11 @@ Rename the `.env.example` file to `.env`, the `.env.dev.example` file to `.env.d
 docker compose -f docker-compose.yml up -d --build
 ```
 
+### Collect the static files:
+```bash
+docker compose exec web python collectstatic
+```
+
 ### Apply database migrations:
 ```bash
 docker compose exec web python manage.py migrate --noinput
