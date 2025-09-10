@@ -4,7 +4,7 @@ Django==4.2.24
 django-bootstrap-v5==1.0.11
 django-extensions==3.2.1
 gunicorn==20.1.0
-Pillow==10.0.1
+Pillow==10.3.0
 psycopg2-binary==2.9.5
 soupsieve==2.3.2.post1
 sqlparse==0.4.4
